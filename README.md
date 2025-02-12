@@ -40,7 +40,7 @@ This project focuses on developing an AI bot using reinforcement learning techni
 
 Clone the repository:
 ```sh
-git clone https://github.com/yourusername/Minigame_ML.git
+git clone https://github.com/Book15011/Minigame_ML/FullProject.git
 ```
 
 Install dependencies:
