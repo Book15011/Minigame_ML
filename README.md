@@ -55,7 +55,7 @@ Run the game:
 ./FullProject.c
 ```
 
-##Quick Test: 
+## Quick Test: 
 - In the FullProject folder, run FullProject.c to see how the game works. You can play against the bot, which already has pre-trained Q-values implemented in aiplayer.c.
 
 To train the bot, follow these methods:
