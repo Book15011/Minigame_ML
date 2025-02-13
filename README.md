@@ -58,7 +58,9 @@ Run the game:
 ## Quick Test: 
 - In the FullProject folder, run FullProject.c to see how the game works. You can play against the bot, which already has pre-trained Q-values implemented in aiplayer.c.
 
-To train the bot, follow these methods:
+
+
+## To train the bot, follow these methods:
 
 ### 1. Creating a New Bot (Training from Zero)
 - Open the `BaseTraining` folder.
