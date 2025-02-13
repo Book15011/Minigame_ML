@@ -1,4 +1,4 @@
-# Minigame_ML
+# Chinese Checker (Simplified Version)_Reinforcement learning (RL) 
 
 ## Overview
 
