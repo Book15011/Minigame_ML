@@ -24,11 +24,23 @@ The `BaseTraining` folder contains the initial Q-learning model used to train AI
    - A trained Q-table is generated and stored for future bot improvements.
 
 ## **Modifying the Training Process**
-- **Adjusting Epsilon (Exploration vs. Exploitation):**
+
+- **Adjusting Epsilon (Exploration vs. Exploitation):**  
   - Modify `epsilon` value in `Original_project1.c` to control randomness.
-- **Changing the Reward System:**
+
+- **Changing the Reward System:**  
   - Edit the reward assignment logic inside `update_q_values()`.
-- **Training with Different Game Rules:**
+
+- **Training with Different Game Rules:**  
   - Modify the `evaluate_move()` function to reflect rule variations.
 
+- **Using the Commented Reward Function:**  
+  - In `Original_Bot.c`, the reward function inside
+    it have 
+    ```c
+    int makeMove(int start, int end, int player, int movetrain)
+    ```
+    and some sub-funcitons are commented out for a specific reason in training process. If you want to use it, simply remove the comment.
+
 After completing base training, you can move to the `/Improving_Bot/` section to enhance the AI further!
+
