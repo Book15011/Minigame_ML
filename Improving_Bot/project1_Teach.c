@@ -140,7 +140,7 @@ int getMoveFromUser() {
 }
 
 
-//  check long-distance possible (including single jump)
+//  check long-distance possible (including single jump) to satified the game rule
 int longJump(int start, int directionRow, int directionCol) {
     int rowStart = start / 10;
     int colStart = start % 10;
@@ -169,8 +169,7 @@ int longJump(int start, int directionRow, int directionCol) {
             int nextPosRow = currRow + rowDistance;
             int nextPosCol = currCol + colDistance;
             int nextPos = nextPosRow * 10 + nextPosCol;
-            //printf("Found piece at %d, piecesInMiddle = %d\n", currPos, piecesInMiddle);
-            //printf("nextPos %d\n", nextPos);
+
 
             // return possiblePos if valid
             if (piecesInMiddle == 1 && nextPosRow >= 1 && nextPosRow <= 8 &&
@@ -203,7 +202,7 @@ int longJump(int start, int directionRow, int directionCol) {
     return -1;
 }
 
-// Recursive multi-jump
+// Recursive multi-jump work with longJump function to check the vaild move 
 int multiJump(int start, int end, int player, int count, int visited[89]) {
     if (count > 16 || start == end) {
         //printf("Reached maximum depth or end position\n");
