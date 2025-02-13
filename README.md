@@ -1,13 +1,15 @@
-# Chinese Checker (Simplified Version)_Reinforcement learning (RL) 
+# Chinese Checker (Simplified Version) – Reinforcement Learning (RL)
 
-## Overview
+## Overview  
 
-This project focuses on developing an AI bot using reinforcement learning techniques in three phases. The bot is trained through a structured learning process, progressively improving its performance through self-play and strategic adjustments. The project consists of two main components:
+This project focuses on developing an AI bot using reinforcement learning techniques in three phases. The bot is trained through a structured learning process, progressively improving its performance through self-play and strategic adjustments.  
 
-### Mini-Game Development
-- Creating a playable game with two modes:
-  - **Human vs. Human**
-  - **Human vs. Bot**
+For details on the game mechanics and rules, please refer to **[GAME_RULES.md](GAME_RULES.md)**.  
+
+## Mini-Game Development  
+- Creating a playable game with two modes:  
+  - **Human vs. Human**  
+  - **Human vs. Bot**  
 
 ### Bot Training Process
 - Implementing reinforcement learning to create an intelligent AI opponent.
