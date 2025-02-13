@@ -8,5 +8,7 @@ This section is used to train a better bot by creating a new bot from the Q-tabl
 2. Run `project1_Teach.c` to refine an existing bot’s Q-table.
 3. If you want to change the teacher bot, modify `project1_Teach.c` inside the `int main()` function.
 4. Adjust the number of training episodes as needed for improved performance.
+5. The trained file will appear in the project folder. If you want to change the file name, modify `Bot_Teach.c` accordingly.
+
 
 This process iteratively enhances the bot’s decision-making ability, leading to a stronger AI.
