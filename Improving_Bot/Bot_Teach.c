@@ -5,6 +5,7 @@
 #include <string.h>
 #include "game_Teach.h"
 #define RECENT_MOVES 3
+
 // Constants for Q-learning
 #define ACTIONS 8889
 #define ALPHA 0.05
@@ -20,6 +21,7 @@ int firstMove = -1;
 int BASE_POSITION_RED[] = {86, 87, 88, 68, 77, 78};
 int BASE_POSITION_BLUE[] = {11, 12, 13, 21, 22, 31};
 
+//Load Data Function
 void loadQTableRedFromFile(const char* filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -60,7 +62,7 @@ void printCheckQtable(){
     }
 }
 
-
+//Input Data Checker
 void printQTable(double Q_table[BOARD_SIZE][ACTIONS], const char* player_name) {
     printf("Q-table for player %s:\n", player_name);
 
@@ -74,7 +76,7 @@ void printQTable(double Q_table[BOARD_SIZE][ACTIONS], const char* player_name) {
         printf("\n");
     }
 }
-
+//Trained Data Saver Function
 void saveQTableToFile(double Q_table[BOARD_SIZE][ACTIONS], const char* filename) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
@@ -101,24 +103,23 @@ void saveQTableToFile(double Q_table[BOARD_SIZE][ACTIONS], const char* filename)
     fclose(file);
     printf("Q-table saved to %s\n", filename);
 }
-
+//Check DiagonalMove
 bool isDiagonalMove(int start, int end) {
-    int start_x = start % 10; // Assuming the board has positions like 11, 12, ..., 99
+    int start_x = start % 10;
     int start_y = start / 10;
     int end_x = end % 10;
     int end_y = end / 10;
 
-    return (abs(end_x - start_x) == abs(end_y - start_y));  // Diagonal condition
+    return (abs(end_x - start_x) == abs(end_y - start_y)); 
 }
 
-// Update Q-table
+// Optimizing Q-table Function
 void updateQTable(int start, int end, int player, int reward) {
     int bestAction = selectBestMove(end, player);
     double bestFutureQ = (bestAction != -1) ? Q_table_blue[end][bestAction] : 0.0;  // Use the max Q-value
     int action = start * 100 + end;
-    //1133
 
-    // Update Q-table based on player and print debug info
+    // Update Q-table based on player and print Debug Text (You can used it to see how the value optimizing 
     if (player == BLUE) {
         //printf ("Blue bestFutureQ: %lf\n",bestFutureQ );
         //printf ("Q_table before %lf\n", Q_table_blue[start][action]);
@@ -128,10 +129,9 @@ void updateQTable(int start, int end, int player, int reward) {
     }
 }
 
-// Select the best move based on Q-table for the current player
+// Select the best move based on Q-table for the current player Funciton
 int selectBestMove(int player) {
-    //int start, end;
-    //printf("yong");
+    
     double maxQ = -1e9;  // Start with a very low Q-value
     int bestStart = -1, bestEnd = -1;
 
@@ -140,7 +140,6 @@ int selectBestMove(int player) {
         for (int e = 0; e < BOARD_SIZE; e++) {
             if (isValidMove(s, e, player)) {
                 int action = s * 100 + e;  // Encode the move
-                //printf ("%lf \t acion :%d\n", Q_table_blue[s][action], action);
                 if (Q_table_blue[s][action] > maxQ) {
                     maxQ = Q_table_blue[s][action];
                     bestStart = s;
@@ -160,20 +159,22 @@ int selectBestMove(int player) {
     return bestStart * 100 + bestEnd;  // Encoded move
 }
 
-// Initializes the game state
+// Initializes the game state Function
 int initializeGameState() {
     initializeBoard();
-    return 11;  // Starting position for blue pieces
+    return 11;
 }
+
 // Array to track the state of BLUE's base
 static int blue_base_state[6] = {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY};
 
 // Function to penalize previous moves
 void penalizePreviousMove(int start, int end, int player, int reward) {
-    //printf("DEBUG: Penalizing previous move - Start: %d, End: %d, Player: %d, Penalty: %d\n", start, end, player, reward);
     updateQTable(start, end, player, reward);  // Apply the penalty
 }
 
+
+//The Reward and Punishment Function
 int makeMove(int start, int end, int player, int movetrain) {
     int reward = 0;
     static int previous_start = -1, previous_end = -1, previous_player = -1;
@@ -250,7 +251,7 @@ int makeMove(int start, int end, int player, int movetrain) {
             //printf("Reward for regression: %d\n", 5 * distance_change);
         }
 
-/*
+
         for (int i = 0; i < 6; i++) {
             int current_piece = board[BASE_POSITION_BLUE[i]];
             //printf("  Position %d: %d -> %d\n", BASE_POSITION_BLUE[i], blue_base_before[i], current_piece);
@@ -266,7 +267,7 @@ int makeMove(int start, int end, int player, int movetrain) {
         previous_start = start;
         previous_end = end;
         previous_player = player;
-*/
+
 
         for (int i = 0; i < 6; i++) {
             if (start == BASE_POSITION_RED[i] && end != BASE_POSITION_RED[i]) {
@@ -277,13 +278,11 @@ int makeMove(int start, int end, int player, int movetrain) {
 
 
     } else {
-        // Invalid move penalty
-        //reward = -30;
-        //printf("DEBUG: Invalid move for player %d: %d -> %d, Penalty applied: %d\n", player, start, end, reward);
+
     }
+    //IF you want to see the how it moving you can use the displayBoard()
     //displayBoard();
 
-    //printf("DEBUG: Move complete. Reward for this move: %lf\n", reward);
     return reward;
 }
 
@@ -334,7 +333,7 @@ void train(int episodes) {
             if (done) {
                 printf("Game over! Winner: %d\n", done);
 
-/*
+
                 // If BLUE wins, boost rewards for all its moves in this episode
                 if (done == BLUE) {
                     printf("BLUE wins! Boosting rewards for all BLUE moves...\n");
@@ -368,7 +367,7 @@ void train(int episodes) {
                     }
 
                 }
-*/
+
 
 
                 break;
@@ -398,13 +397,11 @@ void train(int episodes) {
 int getMove(int player) {
     int start, end;
     double (*Q_table)[ACTIONS] = (player == BLUE) ? Q_table_blue : Q_table_red;
-    //printf ("\n%d\n", player);
     if ((((double)rand() / RAND_MAX) < EPSILON) && (player == BLUE)) {  // Exploration
     do {
         start = rand() % BOARD_SIZE;
         end = rand() % BOARD_SIZE;
     } while (!isValidMove(start, end, player));
-    //printf("Player %d is exploring: selected random move %d -> %d\n", player, start, end);
     }
 
     else{ // Exploitation
@@ -434,6 +431,7 @@ int getMove(int player) {
     return start * 100 + end;
 }
 
+//Detect the nearly final movement 
 int mirrorPosition(int pos) {
     int row = pos / 10;
     int col = pos % 10;
@@ -445,7 +443,7 @@ int mirrorPosition(int pos) {
     return mirroredRow * 10 + mirroredCol;
 }
 
-
+//The Teacher's Bot moving function processing from Q-value table 
 int getMoveRed(int player) {
     int start = -1, end = -1;
     int targetBase = -1;
