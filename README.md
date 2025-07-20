@@ -45,15 +45,7 @@ Clone the repository:
 git clone https://github.com/Book15011/Minigame_ML/FullProject.git
 ```
 
-Install dependencies:
-```sh
-pip install -r requirements.txt
-```
 
-Run the game:
-```sh
-./FullProject.c
-```
 
 ## Quick Test: 
 - In the FullProject folder, run FullProject.c to see how the game works. You can play against the bot, which already has pre-trained Q-values implemented in aiplayer.c.
